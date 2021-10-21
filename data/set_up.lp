@@ -1,0 +1,11 @@
+player(1). 
+player(2). 
+player(3). 
+player(4). 
+player(5). 
+room(1). 
+room(2). 
+room(3). 
+room(4). 
+room(5). 
+killer(5). 

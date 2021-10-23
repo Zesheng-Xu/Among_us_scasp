@@ -14,6 +14,7 @@ def set_up(player_num, room_num,selected_killer):
     for x in range(1, player_num+1):
         # wrtie out rules defining each player
         set_up.write("player(%s). \n" % (x))
+        set_up.write("possible(%s). \n" % (x))
     for y in range(1, room_num+1):
         # wrtie out rules defining each room
         set_up.write("room(%s). \n" % (y))

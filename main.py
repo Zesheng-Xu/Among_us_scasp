@@ -14,22 +14,26 @@ def set_up(player_num, room_num,selected_killer):
     for x in range(1, player_num+1):
         # wrtie out rules defining each player
         set_up.write("player(%s). \n" % (x))
-        set_up.write("possible(%s). \n" % (x))
     for y in range(1, room_num+1):
         # wrtie out rules defining each room
         set_up.write("room(%s). \n" % (y))
     set_up.write("killer(%s). \n" % (selected_killer))
+    # troll = random.randint(1,player_num+1);
+    # set_up.write("troll(player).")
+
     set_up.close()
 def progress_turn(player_num, room_num,turn):
     # progress a turn and fill in supposed information
     turn_data = open(os.path.join("data","turn_%s.lp" % (turn)),"w")
+    unlucky_agent = random.randint(1,player_num)
     # a while loop to progress the game
     # while(not game_over):
     for x in range(1, player_num+1):
         # simulating the selection of a room by the agents
         selected_room = random.randint(1, room_num)
         turn_data.write("choose(player(%s),room(%s),turn(%s)).\n"%(x,selected_room,turn))
-    turn_data.write("turn(%s)."%(turn))
+    turn_data.write("turn(%s).\n"%(turn))
+    # turn_data.write("k_c(player(%s),turn(%s)).\n" % (unlucky_agent, turn))
     turn_data.close()
 
 def parse_scasp_output(scasp_out):
@@ -41,13 +45,14 @@ def parse_scasp_output(scasp_out):
 if __name__ == '__main__':
 
     # absolute path to LOCAL files
-    local_path = "/home/Jason/PycharmProjects/among_us/data"
-    scasp = "/home/Jason/.ciao/build/bin/scasp"
-    query = "/home/Jason/PycharmProjects/among_us/query.lp"
-    rules = "/home/Jason/PycharmProjects/among_us/rules.lp"
+    local_path = "/mnt/c/Users/13365/OneDrive/桌面/Linux-Ubuntu/Among_us_scasp/data"
+    scasp = "scasp"
+    flag = ["--sasp_forall"," --dcc"]
+    query = "/mnt/c/Users/13365/OneDrive/桌面/Linux-Ubuntu/Among_us_scasp/query.lp"
+    rules = "/mnt/c/Users/13365/OneDrive/桌面/Linux-Ubuntu/Among_us_scasp/rules.lp"
 
     # cleaning the file from previous runs <----------------------------
-    existing_files = os.listdir("/home/Jason/PycharmProjects/among_us/data")
+    existing_files = os.listdir("/mnt/c/Users/13365/OneDrive/桌面/Linux-Ubuntu/Among_us_scasp/data")
     if(len(existing_files ) >= 1):
         for file in existing_files:
             os.remove(os.path.join(local_path,file))
